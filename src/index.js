@@ -10,10 +10,12 @@ const { PrismaClient } = require("@prisma/client")
 // }]
 
 //2
+const prisma = new PrismaClient()
+
 const resolvers = {
     Query: {
         info: () => `This is the API for the Hackernews Clone`,
-        feed: () => async (parent, args, context) => {
+        feed: () => (parent, args, context) => {
             return context.prisma.link.findMany()
         },
         oneLink: (parent, args) => {
@@ -70,12 +72,23 @@ const resolvers = {
 }
 
 //3
+// const server = new ApolloServer({
+//     typeDefs: fs.readFileSync(
+//         path.join(__dirname, 'schema.graphql'),
+//         'utf8'
+//     ),
+//     resolvers,
+// })
+
 const server = new ApolloServer({
     typeDefs: fs.readFileSync(
         path.join(__dirname, 'schema.graphql'),
         'utf8'
     ),
     resolvers,
+    context: {
+        prisma,
+    }
 })
 
 server
