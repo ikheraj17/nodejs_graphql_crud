@@ -3,11 +3,11 @@ const fs = require('fs');
 const path = require('path');
 const { PrismaClient } = require("@prisma/client")
 
-let links = [{
-    id: 'link-0',
-    url: 'www.howtographql.com',
-    description: ' Fullstack tutorial for GraphQL'
-}]
+// let links = [{
+//     id: 'link-0',
+//     url: 'www.howtographql.com',
+//     description: ' Fullstack tutorial for GraphQL'
+// }]
 
 //2
 const resolvers = {
