@@ -1,6 +1,7 @@
 const { ApolloServer } = require('apollo-server');
 const fs = require('fs');
 const path = require('path');
+const { PrismaClient } = require("@prisma/client")
 
 let links = [{
     id: 'link-0',
