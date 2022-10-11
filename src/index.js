@@ -13,7 +13,9 @@ const { PrismaClient } = require("@prisma/client")
 const resolvers = {
     Query: {
         info: () => `This is the API for the Hackernews Clone`,
-        feed: () => links,
+        feed: () => async (parent, args, context) => {
+            return context.prisma.link.findMany()
+        },
         oneLink: (parent, args) => {
             const { todoId } = args;
             for(var j = 0; j < links.length; j++) {
@@ -25,16 +27,14 @@ const resolvers = {
         }
     },
     Mutation: {
-        post: (parent, args) => {
-            let idCount = links.length
-
-            const link = {
-                id: `link-${idCount++}`,
-                description: args.description,
-                url: args.url,
-            }
-            links.push(link)
-            return link
+        post: (parent, args, context, info) => {
+            const newLink = context.prisma.link.create({
+                data : {
+                    url: args.url,
+                    description: args.description,
+                }
+            })
+            return newLink;
         },
         delete: (parent, args) => {
             let toDelete = args.id
