@@ -1,0 +1,21 @@
+    type Query {
+        info: String!
+        feed: [Link!]!
+        oneLink(todoId: ID!): Link!
+    }
+
+    type Mutation {
+        post(url: String!, description: String!): Link!,
+        delete(id: ID!): DeleteResponse,
+        update(todoId: ID!, url: String, description: String): Link!
+    }
+
+    type DeleteResponse {
+        ok: Boolean!
+    }
+
+    type Link {
+        id: ID!
+        description: String!
+        url: String!
+    }
